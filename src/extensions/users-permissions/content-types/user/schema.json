@@ -71,6 +71,12 @@
       "relation": "manyToMany",
       "target": "api::chat.chat",
       "mappedBy": "participants"
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
+      "mappedBy": "sender"
     }
   }
 }

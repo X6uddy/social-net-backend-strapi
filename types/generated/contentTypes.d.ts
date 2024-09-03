@@ -379,6 +379,11 @@ export interface ApiChatChat extends Schema.CollectionType {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
+    messages: Attribute.Relation<
+      'api::chat.chat',
+      'oneToMany',
+      'api::message.message'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::chat.chat', 'oneToOne', 'admin::user'> &
@@ -394,11 +399,18 @@ export interface ApiMessageMessage extends Schema.CollectionType {
     singularName: 'message';
     pluralName: 'messages';
     displayName: 'Message';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
+    text: Attribute.Text;
+    sender: Attribute.Relation<
+      'api::message.message',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -782,6 +794,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToMany',
       'api::chat.chat'
+    >;
+    messages: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::message.message'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
